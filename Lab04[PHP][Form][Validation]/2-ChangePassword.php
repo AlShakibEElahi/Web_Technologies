@@ -1,9 +1,16 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['reset'])){
+        header('location: 1-Login.php');
+    }
+?>
+
 <html>
     <head>
         <title>Login</title>
     </head>
     <body>
-        <form>
+        <form action="2-ChangePasswordValidator.php" method="post">
             <fieldset>
                 <legend><b>CHANGE PASSWORD</b></legend>
                 <table>
@@ -20,7 +27,7 @@
                     <tr>
                         <td>Retype New Password</td>
                         <td>
-                            <input type="password" name="newpass" value="" />
+                            <input type="password" name="repass" value="" />
                         </td>
                     </tr>
                     <tr>

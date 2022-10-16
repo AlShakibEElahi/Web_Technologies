@@ -1,9 +1,12 @@
+<?php
+session_start();
+?>
 <html>
     <head>
         <title>Login</title>
     </head>
     <body>
-        <form action="LoginValidator.php" method="post">
+        <form action="1-LoginValidator.php" method="post">
             <fieldset>
                 <legend><b>LOGIN</b></legend>
                 <table>
@@ -29,7 +32,15 @@
                     <tr>
                         <td>
                             <input type="submit" name="" value="Submit" />
-                            <a href="ChangePassword.php">Forget Password</a>
+                            <?php
+                                $_SESSION['check']='True';
+                            ?>
+                            <a href="ChangePassword.php">
+                                <?php
+                                    $_SESSION['reset']='True';
+                                ?>
+                            Forget Password</a>
+                            
                         </td>
                     </tr>
                 </table>
