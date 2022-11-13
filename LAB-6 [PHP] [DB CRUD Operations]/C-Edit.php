@@ -1,7 +1,12 @@
 <?php
     session_start();
+    if(!isset($_GET['id'])){
+        header('location: B-Display.php');
+    }
     $con = mysqli_connect('localhost', 'root', '', 'product_db');
-    $sql ="select * from products where `id`=".$_SESSION['id'];
+    $sql ="select * from products where `id`=".$_GET['id'];
+    $_SESSION['id']=$_GET['id'];
+    unset($_GET['id']);
     $row = mysqli_query($con, $sql);
     $result = mysqli_fetch_assoc($row)
 ?>
