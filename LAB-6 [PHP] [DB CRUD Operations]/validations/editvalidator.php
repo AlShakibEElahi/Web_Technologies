@@ -16,9 +16,11 @@
     $sql1 ="UPDATE `products` SET `name`='{$name}',`buyingprice`='{$buyingp}',`sellingprice`='{$sellingp}',`display`='{$display}' WHERE `id`='{$id}'";
     $result1 = mysqli_query($con, $sql1);
     if($result1>0){
-        echo "successful<br>";
+        $_SESSION['msg']="Edit successful<br>";
+        header('location:../products.php');
     }
     else{
-        echo "Unsuccessful<br>";
+        $_SESSION['msg']="Edit is not successful<br>";
+        header('location:../B-Display.php');
     }
 ?>

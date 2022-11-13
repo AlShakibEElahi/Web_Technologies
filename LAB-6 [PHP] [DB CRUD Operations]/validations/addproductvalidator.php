@@ -19,10 +19,12 @@
         $sql1 ="INSERT INTO `products`(`id`, `name`, `buyingprice`, `sellingprice`, `display`) VALUES ('','{$name}','{$buingp}','{$sellingp}','{$display}')";
         $result1 = mysqli_query($con, $sql1);
         if($result1>0){
-            echo "successful<br>";
+            $_SESSION['msg']="Add successful<br>";
+            header('location:../products.php');
         }
         else{
-            echo "Unsuccessful<br>";
+            $_SESSION['msg']="Add is not successful<br>";
+            header('location:../A-Addproducts.php');
         }
     }
 ?>

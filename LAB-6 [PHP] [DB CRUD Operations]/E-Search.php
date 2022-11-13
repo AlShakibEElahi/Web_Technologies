@@ -37,7 +37,7 @@
                                         $i=1;
                                         while($row = mysqli_fetch_assoc($result)){
                                             if($row['display']=="Yes"){
-                                                echo "<tr><td>". $row['name']."</td><td>". ((int)$row['sellingprice']-(int)$row['buyingprice'])."</td><td><a href='C-Edit.php'>edit</a></td><td><a href='D-Delete.php'>delete</a></td></tr>";
+                                                echo "<tr><td>". $row['name']."</td><td>". ((int)$row['sellingprice']-(int)$row['buyingprice'])."<td><a href='C-Edit.php?id={$row['id']}"."'>edit</a></td><td><a href='D-Delete.php?id={$row['id']}"."'>delete</a></td></tr>";
                                             }
                                         }
                                     }

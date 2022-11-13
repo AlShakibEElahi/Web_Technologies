@@ -6,9 +6,11 @@
     $sql1 ="DELETE FROM `products` WHERE `id`='{$id}'";
     $result1 = mysqli_query($con, $sql1);
     if($result1>0){
-        echo "successful<br>";
+        $_SESSION['msg']="Delete successful<br>";
+        header('location:../products.php');
     }
     else{
-        echo "Unsuccessful<br>";
+        $_SESSION['msg']="Delete is not successful<br>";
+        header('location:../B-Display.php');
     }
 ?>
