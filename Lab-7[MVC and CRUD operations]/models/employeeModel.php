@@ -1,24 +1,40 @@
 <?php
     require_once 'db.php';
         
+    function searchforid(){
+        $con = getconnection();
+        $sql = "SELECT max(id) FROM `employee`";
+        $result = mysqli_query($con, $sql);
+        $users = mysqli_fetch_assoc($result);
+        $user=$users['max(id)'];
+        if($user != null){
+            $lastint=(int)$user;
+            $format=substr($user,0,(strlen($user)-1));
+            $lastint=(int)substr($user,strrpos($user,'-')+1,(strlen($user)));
+            $newid=$format.($lastint+1);
+            return $newid;
+        }
+        else{
+            return "E-2022-1";
+        }
+    }
+
     function addemployeeinemp($user){
         $con = getconnection();
-        $sql2 = "INSERT INTO `employee`(`id`, `fathername`, `mothername`, `dob`, `designation`, `salary`, `branch`) VALUES ('','{$user['fname']}','{$user['mname']}','{$user['dob']}','{$user['designation']}','{$user['salary']}','{$user['branch']}')";
+        $sql2 = "INSERT INTO `employee`(`id`, `name`, `fathername`, `mothername`, `dob`, `designation`, `salary`, `branch`) VALUES ('{$user['id']}','{$user['name']}','{$user['fname']}','{$user['mname']}','{$user['dob']}','{$user['designation']}','{$user['salary']}','{$user['branch']}')";
         $result2 = mysqli_query($con, $sql2);
-        $user2 = mysqli_num_rows($result2);
         
-        if($user2 >0){
+        if($result2){
             return $_SESSION['insertemployee']="Insert Employee Successfull";
         }
     }
     function addemployeeinlogin($user){
         $con = getconnection();
-        $sql1 = "INSERT INTO `login`(`id`, `name`, `email`, `phonenumber`, `username`, `password`, `role`) VALUES ('','{$user['name']}','{$user['email']}','{$user['phone']}','{$user['username']}','{$user['password']}','{$user['designation']}')";
-        $result1 = mysqli_query($con, $sql1);
-        $user1 = mysqli_num_rows($result1);
+        $sql1 = "INSERT INTO `login`(`id`, `email`, `phonenumber`, `username`, `password`, `role`) VALUES ('{$user['id']}','{$user['email']}','{$user['phone']}','{$user['username']}','{$user['password']}','{$user['designation']}')";
+        $result = mysqli_query($con, $sql1);
         
-        if($user1>0){
-            return $_SESSION['insertemployeelogin']="Login can be done";
+        if($result){
+            return $_SESSION['insertemployeelogin']="Login can be done<br>User ID: ".$user['id']."<br>Password: ".$user['password'];
         }
     }
     function editemployee($user){
@@ -50,5 +66,11 @@
         if($user != null){
             return $_SESSION['user']=$user;
         }
+    }
+    function showallemp(){
+        $con = getconnection();
+        $sql = "select * from employee";
+        $result = mysqli_query($con, $sql);
+        return $result;
     }
 ?>

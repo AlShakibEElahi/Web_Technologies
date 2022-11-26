@@ -39,7 +39,7 @@
                     <table width="100%">
                         <tr>
                             <td width="30%">
-                                <form method="post" action="adminsection.php">
+                                <form method="post" action="../../controllers/adminsection/adminsection.php">
                                     <fieldset>
                                         <table>
                                             <tr align="left">
@@ -117,16 +117,19 @@
                                         <legend>Add New Branch</legend>
                                         <table>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Address</th>
-                                                <th>Email</th>
-                                                <th>Position</th>
+                                                <td>Branch Name</td>
+                                                <td>:<input type="text" name="branchname" /></td>
                                             </tr>
                                             <tr>
-                                                <td align="center">Nasif</td>
-                                                <td  align="center">geetanijali bunglow</td>
-                                                <td align="center">nasig@gmail.com</td>
-                                                <td align="center">Manager</td>
+                                                <td>Address</td>
+                                                <td>:<input type="text" name="branchaddress" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Branch Manager</td>
+                                                <td>:<input type="text" name="branchmanager" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" colspan="2"><input type="submit" name="insert" value="ADD" ></td>
                                             </tr>
                                         </table>
                                     </fieldset>

@@ -1,15 +1,10 @@
 <?php
     session_start();
     if(!isset($_COOKIE['logstatus'])){
-        header('location:../login.php');
+        header('location:login.php');
     }
-    if(isset($_SESSION['err'])){
-        echo $_SESSION['err'];
-        unset($_SESSION['err']);
-    }
-    if(isset($_SESSION['addValid'])){
-        echo $_SESSION['addValid'];
-        unset($_SESSION['addValid']);
+    if(isset($_SESSION['admopterr'])){
+        echo $_SESSION['admopterr'];
     }
 ?>
 <?php?>
@@ -24,11 +19,11 @@
                     <table height="100%" width="100%">
                         <tr height="70px">
                             <td>
-                                <a href="../admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
+                                <a href="admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
                             </td>
-                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['name']?></h4></td>
+                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['username']?></h4></td>
                             <td align="right">
-                                <a href="../logout.php"><img src="../image/logout-icon.jpg" width="35" height="35" align="center"></a>
+                                <a href="../controllers/logout.php"><img src="../assets/image/logout-icon.jpg" width="35" height="35" align="center"></a>
                             </td>
                         </tr>
                     </table>
@@ -39,7 +34,7 @@
                     <table width="100%">
                         <tr>
                             <td width="30%">
-                                <form method="post" action="adminsection.php">
+                                <form method="post" action="../controllers/adminsection/adminselection.php">
                                     <fieldset>
                                         <table>
                                             <tr align="left">
@@ -112,28 +107,36 @@
                                 </form>
                             </td>
                             <td align="center">
-                                <form method="post" action="addemployeevalidator.php">
-                                    <fieldset>
-                                        <legend>Add New Branch</legend>
-                                        <table>
-                                            <tr>
-                                                <td>Branch Name</td>
-                                                <td>:<input type="text" name="branchname" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address</td>
-                                                <td>:<input type="text" name="branchaddress" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Branch Manager</td>
-                                                <td>:<input type="text" name="branchmanager" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td align="center" colspan="2"><input type="submit" name="insert" value="ADD" ></td>
-                                            </tr>
-                                        </table>
-                                    </fieldset>
-                                </form>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <fieldset>
+                                                <legend>Employees</legend>
+                                                <h2>Number of Employee:</h2>
+                                            </fieldset>
+                                        </td>
+                                        <td>
+                                            <fieldset>
+                                                <legend>Users</legend>
+                                                <h2>Number of Users:</h2>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <fieldset>
+                                                <legend>Branches</legend>
+                                                <h2>Number of Branches:</h2>
+                                            </fieldset>
+                                        </td>
+                                        <td>
+                                            <fieldset>
+                                                <legend>Rooms</legend>
+                                                <h2>Number of Rooms:</h2>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>

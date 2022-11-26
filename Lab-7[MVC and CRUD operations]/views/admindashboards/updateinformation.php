@@ -3,9 +3,21 @@
     if(!isset($_COOKIE['logstatus'])){
         header('location:../login.php');
     }
-    if(isset($_SESSION['admopterr'])){
-        echo $_SESSION['admopterr'];
-        unset($_SESSION['admopterr']);
+    if(isset($_SESSION['err'])){
+        echo $_SESSION['err'];
+        unset($_SESSION['err']);
+    }
+    if(isset($_SESSION['addValid'])){
+        echo $_SESSION['addValid'];
+        unset($_SESSION['addValid']);
+    }
+    if(isset($_SESSION['insertemployee'])){
+        echo $_SESSION['insertemployee'];
+        unset($_SESSION['insertemployee']);
+    }
+    if(isset($_SESSION['insertemployeelogin'])){
+        echo $_SESSION['insertemployeelogin'];
+        unset($_SESSION['insertemployeelogin']);
     }
 ?>
 <?php?>
@@ -22,9 +34,9 @@
                             <td>
                                 <a href="../admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
                             </td>
-                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['name']?></h4></td>
+                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['username']?></h4></td>
                             <td align="right">
-                                <a href="../logout.php"><img src="../image/logout-icon.jpg" width="35" height="35" align="center"></a>
+                                <a href="../../controllers/logout.php"><img src="../../assets/image/logout-icon.jpg" width="35" height="35" align="center"></a>
                             </td>
                         </tr>
                     </table>
@@ -35,7 +47,7 @@
                     <table width="100%">
                         <tr>
                             <td width="30%">
-                                <form method="post" action="adminsection.php">
+                                <form method="post" action="../../controllers/adminsection/adminselection.php">
                                     <fieldset>
                                         <table>
                                             <tr align="left">

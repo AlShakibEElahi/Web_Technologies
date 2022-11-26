@@ -15,6 +15,10 @@
         echo $_SESSION['insertemployee'];
         unset($_SESSION['insertemployee']);
     }
+    if(isset($_SESSION['insertemployeelogin'])){
+        echo $_SESSION['insertemployeelogin'];
+        unset($_SESSION['insertemployeelogin']);
+    }
 ?>
 <?php?>
 <html>
@@ -30,7 +34,7 @@
                             <td>
                                 <a href="../admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
                             </td>
-                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['name']?></h4></td>
+                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['username']?></h4></td>
                             <td align="right">
                                 <a href="../../controllers/logout.php"><img src="../../assets/image/logout-icon.jpg" width="35" height="35" align="center"></a>
                             </td>
@@ -220,8 +224,8 @@
                                                 <td>Branch</td>
                                                 <td>:
                                                     <select name="branch">
-                                                        <option value="">Branch 01</option>
-                                                        <option value="">Branch 02</option>
+                                                        <option value="01">Branch 01</option>
+                                                        <option value="02">Branch 02</option>
                                                     </select>
                                                 </td>
                                             </tr>

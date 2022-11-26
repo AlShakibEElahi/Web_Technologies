@@ -1,10 +1,23 @@
 <?php
     session_start();
     if(!isset($_COOKIE['logstatus'])){
-        header('location:login.php');
+        header('location:../login.php');
     }
-    if(isset($_SESSION['admopterr'])){
-        echo $_SESSION['admopterr'];
+    if(isset($_SESSION['err'])){
+        echo $_SESSION['err'];
+        unset($_SESSION['err']);
+    }
+    if(isset($_SESSION['addValid'])){
+        echo $_SESSION['addValid'];
+        unset($_SESSION['addValid']);
+    }
+    if(isset($_SESSION['insertemployee'])){
+        echo $_SESSION['insertemployee'];
+        unset($_SESSION['insertemployee']);
+    }
+    if(isset($_SESSION['insertemployeelogin'])){
+        echo $_SESSION['insertemployeelogin'];
+        unset($_SESSION['insertemployeelogin']);
     }
 ?>
 <?php?>
@@ -19,11 +32,11 @@
                     <table height="100%" width="100%">
                         <tr height="70px">
                             <td>
-                                <a href="admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
+                                <a href="../admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
                             </td>
-                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['name']?></h4></td>
+                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['username']?></h4></td>
                             <td align="right">
-                                <a href="../controllers/logout.php"><img src="../assets/image/logout-icon.jpg" width="35" height="35" align="center"></a>
+                                <a href="../../controllers/logout.php"><img src="../../assets/image/logout-icon.jpg" width="35" height="35" align="center"></a>
                             </td>
                         </tr>
                     </table>
@@ -34,7 +47,7 @@
                     <table width="100%">
                         <tr>
                             <td width="30%">
-                                <form method="post" action="../controllers/adminsection/adminselection.php">
+                                <form method="post" action="../../controllers/adminsection/adminselection.php">
                                     <fieldset>
                                         <table>
                                             <tr align="left">
@@ -107,36 +120,34 @@
                                 </form>
                             </td>
                             <td align="center">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <fieldset>
-                                                <legend>Employees</legend>
-                                                <h2>Number of Employee:</h2>
-                                            </fieldset>
-                                        </td>
-                                        <td>
-                                            <fieldset>
-                                                <legend>Users</legend>
-                                                <h2>Number of Users:</h2>
-                                            </fieldset>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <fieldset>
-                                                <legend>Branches</legend>
-                                                <h2>Number of Branches:</h2>
-                                            </fieldset>
-                                        </td>
-                                        <td>
-                                            <fieldset>
-                                                <legend>Rooms</legend>
-                                                <h2>Number of Rooms:</h2>
-                                            </fieldset>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <?php
+                                    require_once '../../models/employeeModel.php';
+                                    $results=showallemp();
+                                    $rows=mysqli_num_rows($results);
+                                    if($rows>0){
+
+                                        echo "<table border='1'>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Father's Name</th>
+                                            <th>Mother's Name</th>
+                                            <th>Date of Birth</th>
+                                            <th>Designation</th>
+                                            <th>Branch</th>
+                                            <th>Salary</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>";
+                                        while($row = mysqli_fetch_assoc($results)){
+                                            echo "<tr><td>". $row['id']."</td><td>". $row['fathername']."</td><td>". $row['mothername']."</td><td>". $row['dob']."</td><td>". $row['designation']."</td><td>". $row['branch']."</td><td>". $row['salary']."</td><td><a href='C-Edit.php?id={$row['id']}"."'>edit</a></td><td><a href='D-Delete.php?id={$row['id']}"."'>delete</a></td></tr>";
+                                        }
+                                        echo "</tabel>";
+                                    }
+                                    else{
+                                        echo"Currently no employee added...";
+                                    }
+                                    
+                                ?>
                             </td>
                         </tr>
                     </table>

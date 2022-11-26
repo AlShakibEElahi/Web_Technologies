@@ -1,6 +1,4 @@
 <?php
-echo "Hello";
-    session_start();
     require_once '../../models/employeeModel.php';
     $name = $_POST["name"];
     $fname= $_POST["fathername"];
@@ -34,16 +32,11 @@ echo "Hello";
     //     header("location: addemployee.php");
     // }
     // else{
-        
-        // $id="E-".date("Y")."-".$ndata;
-        // $file1 = fopen('../upload/employee.txt', 'a');
-        // $file2 = fopen('../upload/login.txt', 'a');
-        $username=$name."_".date("m");
+        $username=strtolower(str_replace(" ",'',$name))."_".date("m");
         $password=$phone."@";
-        // $data2 = "#id:".$id."#name:".$name."#email:".$email."#phone:".$phone."#username:".$username."#password:".$password."#end"."\r";
-        // $data1 = "#id:".$id."#branch".$branch."#designation".$designation."#salary:".$salary."\r";
-        
-        $user=['name'=>$name,'fname'=>$fname,'mname'=>$mname ,'dob'=>$dob,'designation'=>$designation,'salary'=>$salary,'branch'=>$branch,'email'=>$email,'phone'=>$phone,'username'=>$username,'password'=>$password];
+        $id=searchforID();
+        echo $id;
+        $user=['id'=>$id,'name'=>$name,'fname'=>$fname,'mname'=>$mname ,'dob'=>$dob,'designation'=>$designation,'salary'=>$salary,'branch'=>$branch,'email'=>$email,'phone'=>$phone,'username'=>$username,'password'=>$password];
         $status=addemployeeinemp($user);
         $status=addemployeeinlogin($user);
 
