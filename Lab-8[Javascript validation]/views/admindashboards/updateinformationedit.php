@@ -1,5 +1,18 @@
 <?php
+    require_once('../../models/db.php');
     session_start();
+
+    if(isset($_GET['id'])){
+            $con = getconnection();
+            $sql ="select * from employee where `id`=".$_GET['id'];
+            unset($_GET['id']);
+            $row = mysqli_query($con, $sql);
+            print_r($row);
+            $result = mysqli_fetch_assoc($row);
+                print_r($result);
+    }
+                                    
+                                
     if(!isset($_COOKIE['logstatus'])){
         header('location:../login.php');
     }
@@ -120,34 +133,91 @@
                                 </form>
                             </td>
                             <td align="center">
-                                <?php
-                                    require_once '../../models/employeeModel.php';
-                                    $results=showallemp();
-                                    $rows=mysqli_num_rows($results);
-                                    if($rows>0){
-
-                                        echo "<table border='1'>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Father's Name</th>
-                                            <th>Mother's Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Designation</th>
-                                            <th>Branch</th>
-                                            <th>Salary</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>";
-                                        while($row = mysqli_fetch_assoc($results)){
-                                            echo "<tr><td>". $row['id']."</td><td>". $row['fathername']."</td><td>". $row['mothername']."</td><td>". $row['dob']."</td><td>". $row['designation']."</td><td>". $row['branch']."</td><td>". $row['salary']."</td><td><a href='updateinformationedit.php?id={$row['id']}"."'>edit</a></td><td><a href='updateinformation.php?id={$row['id']}"."'>delete</a></td></tr>";
-                                        }
-                                        echo "</tabel>";
-                                    }
-                                    else{
-                                        echo"Currently no employee added...";
-                                    }
-                                    
-                                ?>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <form method="post" action="../../controllers/adminsection/editvalidator.php">
+                                                <fieldset>
+                                                    <legend><b>EDIT</b></legend>
+                                                    <table>
+                                                        <tr>
+                                                            <td>ID</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='text' name='id' value='".$result['id']."' />"
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='text' name='name' value='".$result['name']."' />"
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Father's Name</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='text' name='fname' value='".$result['fathername']."' />"
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mother's Name</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='text' name='mname' value='".$result['mothername']."' />"
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Date of Birth</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='text' name='dob' value='".$result['dob']."' />"
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Designation</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='text' name='designation' value='".$result['designation']."' />"
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Branch</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='number' name='branch' value='".$result['branch']."' />"
+                                                                ?>                                    
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Salary</td>
+                                                            <td>
+                                                                <?php
+                                                                    echo "<input type='number' name='salary' value='".$result['salary']."' />"
+                                                                ?> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2"><hr /></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="submit" name="" value="Save" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </fieldset>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>

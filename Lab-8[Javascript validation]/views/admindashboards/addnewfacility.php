@@ -11,14 +11,6 @@
         echo $_SESSION['addValid'];
         unset($_SESSION['addValid']);
     }
-    if(isset($_SESSION['insertemployee'])){
-        echo $_SESSION['insertemployee'];
-        unset($_SESSION['insertemployee']);
-    }
-    if(isset($_SESSION['insertemployeelogin'])){
-        echo $_SESSION['insertemployeelogin'];
-        unset($_SESSION['insertemployeelogin']);
-    }
 ?>
 <?php?>
 <html>
@@ -34,9 +26,9 @@
                             <td>
                                 <a href="../admindashboard.php"><h2><i>Smart Hostel</i></h2></a>
                             </td>
-                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['user']['username']?></h4></td>
+                            <td align="right"> <h4>Welcome, <?php echo $_SESSION['name']?></h4></td>
                             <td align="right">
-                                <a href="../../controllers/logout.php"><img src="../../assets/image/logout-icon.jpg" width="35" height="35" align="center"></a>
+                                <a href="../logout.php"><img src="../image/logout-icon.jpg" width="35" height="35" align="center"></a>
                             </td>
                         </tr>
                     </table>
@@ -47,7 +39,7 @@
                     <table width="100%">
                         <tr>
                             <td width="30%">
-                                <form method="post" action="../../controllers/adminsection/adminselection.php">
+                                <form method="post" action="adminsection.php">
                                     <fieldset>
                                         <table>
                                             <tr align="left">
@@ -82,11 +74,11 @@
                                             </tr>
 
                                             <tr align="left">
-                                                <td><input type="radio" name="admOpt" value="branch" />Branch</td>
+                                                <td><input type="radio" name="admOpt" value="Service" />Service</td>
                                                 <td>
-                                                    <select name="branch">
-                                                        <option value="addnewbranch">Add new branch</option>
-                                                        <option value="branchdetails">Branch Details</option>
+                                                    <select name="Service">
+                                                        <option value="addnewService">Add new Service</option>
+                                                        <option value="Servicedetails">Service Details</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -120,34 +112,28 @@
                                 </form>
                             </td>
                             <td align="center">
-                                <?php
-                                    require_once '../../models/employeeModel.php';
-                                    $results=showallemp();
-                                    $rows=mysqli_num_rows($results);
-                                    if($rows>0){
-
-                                        echo "<table border='1'>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Father's Name</th>
-                                            <th>Mother's Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Designation</th>
-                                            <th>Branch</th>
-                                            <th>Salary</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>";
-                                        while($row = mysqli_fetch_assoc($results)){
-                                            echo "<tr><td>". $row['id']."</td><td>". $row['fathername']."</td><td>". $row['mothername']."</td><td>". $row['dob']."</td><td>". $row['designation']."</td><td>". $row['branch']."</td><td>". $row['salary']."</td><td><a href='updateinformationedit.php?id={$row['id']}"."'>edit</a></td><td><a href='updateinformation.php?id={$row['id']}"."'>delete</a></td></tr>";
-                                        }
-                                        echo "</tabel>";
-                                    }
-                                    else{
-                                        echo"Currently no employee added...";
-                                    }
-                                    
-                                ?>
+                                <form method="post" action="addemployeevalidator.php">
+                                    <fieldset>
+                                        <legend>Add New Service</legend>
+                                        <table>
+                                            <tr>
+                                                <td>Service Name</td>
+                                                <td>:<input type="text" name="servicename" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cost</td>
+                                                <td>:<input type="text" name="Cost" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Supervisor</td>
+                                                <td>:<input type="text" name="supervisor" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" colspan="2"><input type="submit" name="insert" value="ADD" ></td>
+                                            </tr>
+                                        </table>
+                                    </fieldset>
+                                </form>
                             </td>
                         </tr>
                     </table>
