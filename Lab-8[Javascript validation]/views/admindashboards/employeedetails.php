@@ -119,40 +119,59 @@
                                     </fieldset>
                                 </form>
                             </td>
-                            <td align="center">
-                                <?php
-                                    require_once '../../models/employeeModel.php';
-                                    $results=showallemp();
-                                    $rows=mysqli_num_rows($results);
-                                    if($rows>0){
-
-                                        echo "<table border='1'>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Father's Name</th>
-                                            <th>Mother's Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Designation</th>
-                                            <th>Branch</th>
-                                            <th>Salary</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>";
-                                        while($row = mysqli_fetch_assoc($results)){
-                                            echo "<tr><td>". $row['id']."</td><td>". $row['fathername']."</td><td>". $row['mothername']."</td><td>". $row['dob']."</td><td>". $row['designation']."</td><td>". $row['branch']."</td><td>". $row['salary']."</td><td><a href='updateinformationedit.php?id={$row['id']}"."'>edit</a></td><td><a href='updateinformation.php?id={$row['id']}"."'>delete</a></td></tr>";
-                                        }
-                                        echo "</tabel>";
-                                    }
-                                    else{
-                                        echo"Currently no employee added...";
-                                    }
-                                    
-                                ?>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td align="center">
+                                            <form method="POST" action="../../controllers/adminsection/employeedetailsvalidator.php">
+                                                <tabble>
+                                                    <tr>
+                                                        <td colspan='9'>
+                                                            <input type='text' name='name' value='' id='na1' onkeyup='search()' onclick='def()'>
+                                                            <input type='submit' value='Search by name'>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p id='na1write'>Employee Information is going to show here...</p>
+                                                        </td>
+                                                    </tr>
+                                                </tabble> 
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
+        <script>
+            function search() {
+                let name = document.getElementById('na1').value;
+                if (name != "") {
+                    let xhttp = new XMLHttpRequest();
+                    xhttp.open('GET', '../../controllers/adminsection/employeedetailsvalidator.php?name=' + name, true);
+                    xhttp.send();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementsByTagName('p')[0].innerHTML = this.responseText;                        
+                        }
+                    }
+                }
+            }
+            function def() {
+                let name = document.getElementById('na1').value;
+                let xhttp = new XMLHttpRequest();
+                xhttp.open('GET', '../../controllers/adminsection/employeedetailsvalidator.php?name=' + name, true);
+                xhttp.send();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementsByTagName('p')[0].innerHTML = this.responseText;                        
+                    }
+                }
+            }
+        </script>
     </body>
 </html>
